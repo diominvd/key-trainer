@@ -1,0 +1,23 @@
+div.keyboard-key {
+   width: 45px;
+   height: 45px;
+
+   display: flex;
+   justify-content: center;
+   align-items: center;
+
+   border-radius: 8px;
+   border: 1px solid var(--text-200);
+
+   &.pressed-false {
+      background-color: transparent;
+   }
+   &.pressed-true {
+      background-color: var(--primary-300);
+   }
+
+   span {
+      font-size: 18px;
+      color: var(--text-100);
+   }
+}

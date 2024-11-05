@@ -1,0 +1,10 @@
+div.layout {
+   display: flex;
+
+   &.orientation-horizontal {
+      flex-direction: row;
+   }
+   &.orientation-vertical {
+      flex-direction: column;
+   }
+}

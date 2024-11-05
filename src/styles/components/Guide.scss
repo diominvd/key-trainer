@@ -1,0 +1,21 @@
+div.guide {
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: stretch;
+
+   div.left-border, div.right-border {
+      width: 20px;
+      
+      border-top: 2px solid var(--text-200);
+      border-bottom: 2px solid var(--text-200);
+   }
+
+   div.left-border {
+      border-left: 2px solid var(--text-200);
+   }
+
+   div.right-border {
+      border-right: 2px solid var(--text-200);
+   }
+}

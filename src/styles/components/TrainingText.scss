@@ -1,0 +1,17 @@
+div.training-text {
+   width: 40%;
+   text-align: center;
+   word-break: break-word;
+
+   span.typed-char {
+      font-size: 16px;
+
+      &.correct-true {
+         color: var(--primary-100);
+      }
+   }
+
+   span.not-typed-char {
+      font-size: 16px;
+   }
+}
