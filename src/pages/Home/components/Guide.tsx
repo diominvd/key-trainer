@@ -11,7 +11,7 @@ export const Guide: React.FC = (): JSX.Element => {
          <div className='left-border'></div>
          <Layout orientation='vertical' style={{gap: '10px', flex: 1, padding: '20px'}}>
             <Caption color='gray'>• Scroll mouse wheel up/down fro change text length</Caption>
-            <Caption color='gray'>• Use 'Control' key for change layout</Caption>
+            <Caption color='gray'>• Use 'Control' key for change training language layout</Caption>
             <Caption color='gray'>• Press 'Enter' key for reload training</Caption>
          </Layout>
          <div className='right-border'></div>

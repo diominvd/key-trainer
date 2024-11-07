@@ -7,3 +7,5 @@ export type AlignType = 'left' | 'center' | 'right';
 export type OrientationType = 'horizontal' | 'vertical';
 
 export type LayoutLanguageType = 'ru' | 'en';
+
+export type CursorType = 'block' | 'line';

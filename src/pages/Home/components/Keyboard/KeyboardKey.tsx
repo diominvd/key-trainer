@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+// Providers;
+import { useTrainingProvider } from '@providers/TrainingProvider';
 // Styles;
 import '@styles/components/KeyboardKey.scss';
 
@@ -9,12 +11,16 @@ interface KeyboardKeyInterface {
 }
 
 export const KeyboardKey: React.FC<KeyboardKeyInterface> = ({ char, width }): JSX.Element => {
-   const [pressedStatus, setPressedStatus] = useState<boolean>(false);
+   const [correctStatus, setCorrectStatus] = useState<boolean | null>(null);
+   const { layoutLanguage, trainingText, trainingUserInput } = useTrainingProvider();
 
    const highlightKeyboardKey = (e: KeyboardEvent) => {
       if (e.key === char) {
-         setPressedStatus(true);
-         setTimeout(() => setPressedStatus(false), 100)
+         e.key === trainingText[trainingUserInput.length] ? setCorrectStatus(true) : setCorrectStatus(false);
+
+         setTimeout(() => {
+            setCorrectStatus(null);
+         }, 100)
       }
    }
 
@@ -24,10 +30,10 @@ export const KeyboardKey: React.FC<KeyboardKeyInterface> = ({ char, width }): JS
       return () => {
          window.removeEventListener('keydown', highlightKeyboardKey);
       }
-   })
+   }, [layoutLanguage, trainingUserInput])
 
    return (
-      <div className={`keyboard-key pressed-${pressedStatus}`} style={{width: `${width}px`}}>
+      <div className={`keyboard-key status-${correctStatus}`} style={{width: `${width}px`}}>
          <span>{ char.toUpperCase() }</span>
       </div>
    )

@@ -9,10 +9,13 @@ div.keyboard-key {
    border-radius: 8px;
    border: 1px solid var(--text-200);
 
-   &.pressed-false {
+   &.status-null {
       background-color: transparent;
    }
-   &.pressed-true {
+   &.status-false {
+      background-color: var(--red);
+   }
+   &.status-true {
       background-color: var(--primary-300);
    }
 

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 // Utilities;
 import { generateRandomText } from '@utils/generateRandomText.ts';
 // Config;
@@ -50,7 +50,6 @@ export const TrainingProvider: React.FC<TrainingProviderInterface> = ({ children
       setTrainingStatus(false);
       setTrainingStartTime(0);
       setTrainingTimerValue(0);
-      setTrainingText('');
       setTrainingUserInput('');
       setTrainingInputedCharsNumber(0);
       setTrainingCorrectInputedCharsNumber(0);
@@ -69,16 +68,14 @@ export const TrainingProvider: React.FC<TrainingProviderInterface> = ({ children
       setTrainingTimerValue((Date.now() - trainingStartTime) / 1000);
    }
 
-   const generateNewTrainingText = useCallback(() => {
-      setTrainingText(generateRandomText(layoutLanguage, trainingTextLength));
-   }, [layoutLanguage, trainingTextLength])
+   const generateNewTrainingText = () => {
+      const newTrainingText: string = generateRandomText(layoutLanguage, trainingTextLength); 
+      setTrainingText(newTrainingText);
+   }
 
    const changeTrainingTextLengthWithScroll = (e: WheelEvent) => {
-      if (trainingUserInput.length > 0) {
-         stopTraining();
-      }
       if (e.deltaY > 0) {
-         if (trainingTextLength > 0) {
+         if (trainingTextLength > 1) {
             setTrainingTextLength(prev => prev - 1);
          }
       } else {
@@ -105,24 +102,20 @@ export const TrainingProvider: React.FC<TrainingProviderInterface> = ({ children
    }
 
    const updateTypingSpeed = () => {
-      if (trainingStatus) {
-         const trainingDurationTimeInMinutes: number = (Date.now() - trainingStartTime) / 60000;
-         const currentTypingSpeed: number = Number(Math.round(trainingInputedCharsNumber / trainingDurationTimeInMinutes).toFixed(0));
-         setTypingSpeed(currentTypingSpeed);
-      }
+      const trainingDurationTimeInMinutes: number = (Date.now() - trainingStartTime) / 60000;
+      const currentTypingSpeed: number = Number(Math.round(trainingInputedCharsNumber / trainingDurationTimeInMinutes).toFixed(0));
+      setTypingSpeed(currentTypingSpeed);
    }
 
    const updateTypingAccuracy = () => {
-      if (trainingStatus) {
-         const currentTypingAccuracy: number = Number((((trainingCorrectInputedCharsNumber - typingMisprints) / trainingInputedCharsNumber) * 100).toFixed(0));
-         
-         if (isNaN(currentTypingAccuracy)) {
-            setTypingAccuracy(0);
-         } else if (currentTypingAccuracy < 0) {
-            setTypingAccuracy(0);
-         } else {
-            setTypingAccuracy(currentTypingAccuracy);
-         }
+      const currentTypingAccuracy: number = Number((((trainingCorrectInputedCharsNumber - typingMisprints) / trainingInputedCharsNumber) * 100).toFixed(0));
+      
+      if (isNaN(currentTypingAccuracy)) {
+         setTypingAccuracy(0);
+      } else if (currentTypingAccuracy < 0) {
+         setTypingAccuracy(0);
+      } else {
+         setTypingAccuracy(currentTypingAccuracy);
       }
    }
 
@@ -141,82 +134,79 @@ export const TrainingProvider: React.FC<TrainingProviderInterface> = ({ children
          if (trainingUserInput.length < trainingText.length) {
             processPressedSingleKey(e);
          }
-      }
-      
-      // Handle Backspace press if training status is true;
-      if (trainingStatus) {
-         if (e.key === 'Backspace' && trainingUserInput.length > 0) {
-            if (trainingUserInput.length > 0) {
-               removeCharFromTrainingUserInput();
-            }
+      } else {
+         try {
+            specialKeysHandlers[e.key]();
+         } catch (error) {
+            console.log('KeyError: Unknown pressed key');
          }
       }
+   }
 
-      // Handle Ctrl key press;
-      if (e.key === 'Control') {
-         changeLayoutLanguage();
+   const processPressedSingleKey = (e: KeyboardEvent) => {
+      const notFixedTrainingUserInput: string = trainingUserInput + e.key;
+
+      // Check correct of pressed key;
+      const pressedKeyIsCorrect: boolean = checkCorrectOfPressedSingleKey(notFixedTrainingUserInput, notFixedTrainingUserInput.length - 1);
+      if (pressedKeyIsCorrect) {
+         updateTrainingCorrectInputedCharsNumber();
+      } else {
+         updateTypingMisprints();
       }
 
-      // Handle Enter key press;
-      if (e.key === 'Enter') {
+      updateTrainingInputedCharsNumber();
+      addCharToTrainingUserInput(e.key);
+   }
+
+   const specialKeysHandlers: Record<string, () => void> = {
+      Backspace: () => {
+         if (trainingUserInput.length > 0 && trainingUserInput.length < trainingText.length) {
+            removeCharFromTrainingUserInput();
+         }
+      },
+      Control: () => {
+         changeLayoutLanguage();
+      },
+      Enter: () => {
          stopTraining();
          generateNewTrainingText();
       }
    }
 
-   const processPressedSingleKey = (e: KeyboardEvent) => {
-      if (e.key.length === 1) {
-         const notFixedTrainingUserInput: string = trainingUserInput + e.key;
-
-         // Check correct of pressed key;
-         const pressedKeyIsCorrect: boolean = checkCorrectOfPressedSingleKey(notFixedTrainingUserInput, notFixedTrainingUserInput.length - 1);
-         if (pressedKeyIsCorrect) {
-            updateTrainingCorrectInputedCharsNumber();
-         } else {
-            updateTypingMisprints();
-         }
-
-         updateTrainingInputedCharsNumber();
-         addCharToTrainingUserInput(e.key);
-      }
-   }
-
    const checkCorrectOfPressedSingleKey = (notFixedInput: string, currentCharIndex: number) => {
-      if (currentCharIndex < trainingText.length) {
-         return notFixedInput[currentCharIndex] === trainingText[currentCharIndex];
-      }
-      return false;
+      return currentCharIndex < trainingText.length && notFixedInput[currentCharIndex] === trainingText[currentCharIndex];
    }
 
-   useEffect(() => {
-      window.addEventListener('keydown', handleKeyPress);
-      window.addEventListener('wheel', changeTrainingTextLengthWithScroll);
-
-      return () => {
-         window.removeEventListener('keydown', handleKeyPress);
-         window.removeEventListener('wheel', changeTrainingTextLengthWithScroll);
-      }
-   })
-
+   /*
+      This effect causes the component to be redrawn when changing the language and length of the text, simultaneously bringing all states to their initial values;
+   */ 
    useEffect(() => {
       stopTraining();
       generateNewTrainingText();
    }, [layoutLanguage, trainingTextLength])
 
+   /*
+      This effect causes the component to be redrawn when a key is pressed, the mouse wheel is scrolled, and interval calculations are triggered (At the same time, all states are not brought back to their original values);
+   */
    useEffect(() => {
-      const trainingStatisticsIntervalId = setInterval(() => {
+      window.addEventListener('keydown', handleKeyPress);
+      window.addEventListener('wheel', changeTrainingTextLengthWithScroll);
+
+      const trainingCalculateIntervalId = setInterval(() => {
          if (trainingStatus) {
             checkTrainingUserInputCompleteness();
             updateTrainingTimerValue();
             updateTypingSpeed();
             updateTypingAccuracy();
          }
-      }, 100)
+      }, 50)
 
       return () => {
-         clearInterval(trainingStatisticsIntervalId);
+         window.removeEventListener('keydown', handleKeyPress);
+         window.removeEventListener('wheel', changeTrainingTextLengthWithScroll);
+         clearInterval(trainingCalculateIntervalId);
       }
-   }, [trainingUserInput])
+   }, [trainingUserInput, trainingTextLength])
 
    return (
       <TrainingContext.Provider value={{ layoutLanguage, trainingTimerValue, trainingText, trainingTextLength, trainingUserInput, typingSpeed, typingAccuracy, typingMisprints }}>

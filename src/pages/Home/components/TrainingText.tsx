@@ -9,7 +9,7 @@ import '@styles/components/TrainingText.scss';
 
 export const TrainingText: React.FC = (): JSX.Element => {
    const { trainingText, trainingUserInput } = useTrainingProvider();
-
+   const cursorType = 'block';
 
    const trainingUserTypedCharsList = trainingUserInput.split('');
    const remainsOfTrainingTextCharsList = trainingText.slice(trainingUserTypedCharsList.length, trainingText.length).split('');
@@ -19,7 +19,12 @@ export const TrainingText: React.FC = (): JSX.Element => {
          const typedCharIsSpace = (typedChar === ' ') ? true : false;
          const typedCharMustBeSpace = (trainingText[typedCharIndex] === ' ') ? true : false;
          return (
-            <Text key={typedCharIndex} color={typedCharIsCorrect ? 'primary' : 'primary-dark'} underline={typedCharMustBeSpace && !typedCharIsCorrect}>
+            <Text 
+               key={typedCharIndex} 
+               color={typedCharIsCorrect ? 'primary' : 'primary-dark'} 
+               underline={typedCharMustBeSpace && !typedCharIsCorrect} 
+               cursor={(typedCharIndex === trainingText.length - 1) ? false : (typedCharIndex === trainingUserInput.length - 1) && cursorType}
+            >
                {
                   typedCharMustBeSpace ? (
                      typedChar
