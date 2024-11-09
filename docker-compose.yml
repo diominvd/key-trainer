@@ -1,0 +1,10 @@
+services:
+  client:
+    build:
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - "5173:5173"
+    volumes:
+      - "/app/node_modules"
+      - "./:/app"
