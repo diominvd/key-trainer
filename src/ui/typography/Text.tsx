@@ -14,7 +14,7 @@ interface TextInterface {
    children: React.ReactNode;
 }
 
-export const Text: React.FC<TextInterface> = ({ align='left', color='default', weight=500, underline=false, cursor=false, children }): JSX.Element => {
+export const Text: React.FC<TextInterface> = ({ align='left', color='main', weight=500, underline=false, cursor=false, children }): JSX.Element => {
    return (
       <span className={`text align-${align} color-${color} weight-${weight} underline-${underline} cursor-${cursor}`}>{ children }</span>
    )

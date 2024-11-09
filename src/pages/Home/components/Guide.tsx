@@ -1,8 +1,9 @@
 import React from 'react';
-// Styles;
-import '@styles/components/Guide.scss';
+// Components;
 import { Caption } from '@ui/typography/Caption';
 import { Layout } from '@ui/Layout/Layout';
+// Styles;
+import '@styles/components/Guide.scss';
 
 
 export const Guide: React.FC = (): JSX.Element => {

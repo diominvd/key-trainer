@@ -1,4 +1,4 @@
-export type ColorType = 'default' | 'gray' | 'inverse' | 'primary' | 'primary-dark';
+export type ColorType = 'main' | 'gray' | 'inverse' | 'primary' | 'primary-dark';
 
 export type WeightType = 500 | 600 | 700;
 

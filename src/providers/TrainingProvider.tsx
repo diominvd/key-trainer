@@ -1,9 +1,10 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+// Types;
+import { LayoutLanguageType } from '@config/types.ts';
 // Utilities;
 import { generateRandomText } from '@utils/generateRandomText.ts';
 // Config;
 import words from '@config/words.ts';
-import { LayoutLanguageType } from '@config/types';
 
 
 interface TrainingContextInterface {
