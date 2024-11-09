@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 // Providers;
-import { useTrainingProvider } from '@providers/TrainingProvider';
+import { useTrainingProvider } from '@providers/TrainingProvider.tsx';
 // Styles;
 import '@styles/components/KeyboardKey.scss';
 
@@ -30,7 +30,7 @@ export const KeyboardKey: React.FC<KeyboardKeyInterface> = ({ char, width }): JS
       return () => {
          window.removeEventListener('keydown', highlightKeyboardKey);
       }
-   }, [layoutLanguage, trainingUserInput])
+   }, [layoutLanguage, trainingUserInput, correctStatus])
 
    return (
       <div className={`keyboard-key status-${correctStatus}`} style={{width: `${width}px`}}>

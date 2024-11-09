@@ -192,6 +192,13 @@ export const TrainingProvider: React.FC<TrainingProviderInterface> = ({ children
       window.addEventListener('keydown', handleKeyPress);
       window.addEventListener('wheel', changeTrainingTextLengthWithScroll);
 
+      return () => {
+         window.removeEventListener('keydown', handleKeyPress);
+         window.removeEventListener('wheel', changeTrainingTextLengthWithScroll);
+      }
+   })
+
+   useEffect(() => {
       const trainingCalculateIntervalId = setInterval(() => {
          if (trainingStatus) {
             checkTrainingUserInputCompleteness();
@@ -201,12 +208,8 @@ export const TrainingProvider: React.FC<TrainingProviderInterface> = ({ children
          }
       }, 50)
 
-      return () => {
-         window.removeEventListener('keydown', handleKeyPress);
-         window.removeEventListener('wheel', changeTrainingTextLengthWithScroll);
-         clearInterval(trainingCalculateIntervalId);
-      }
-   }, [trainingUserInput, trainingTextLength])
+      return () => clearInterval(trainingCalculateIntervalId);
+   })
 
    return (
       <TrainingContext.Provider value={{ layoutLanguage, trainingTimerValue, trainingText, trainingTextLength, trainingUserInput, typingSpeed, typingAccuracy, typingMisprints }}>
