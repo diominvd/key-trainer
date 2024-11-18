@@ -1,7 +1,12 @@
 :root {
-   --primary-100: #06E1AB;
-   --primary-200: #05A980;
-   --primary-300: #037156;
+   --colorTone: 175; // Change only this parameter;
+   --colorX: 41%;
+   --colorY: 58%;
+   --decrement: 15%;
 
-   --red: #710303;
+   --primary-100: hsl(var(--colorTone), var(--colorX), var(--colorY));
+   --primary-200: hsl(var(--colorTone), var(--colorX), calc(var(--colorY) - var(--decrement)));
+   --primary-300: hsl(var(--colorTone), var(--colorX), calc(var(--colorY) - var(--decrement) * 2));
+
+   --red: #a55d5f;
 }

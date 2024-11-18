@@ -6,12 +6,14 @@ import { pagesConfig } from '@config/pages';
 import { TrainingProvider } from '@providers/TrainingProvider';
 // Components;
 import { Home } from '@pages/Home/Home';
+import { Header } from '@modules/Header/Header';
 
 
 export const App: React.FC = (): JSX.Element => {
   return (
     <TrainingProvider>
       <BrowserRouter>
+        <Header />
         <Routes>
           <Route index path={pagesConfig.home} element={<Home />} />
         </Routes>

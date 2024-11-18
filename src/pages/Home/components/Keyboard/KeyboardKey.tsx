@@ -20,7 +20,7 @@ export const KeyboardKey: React.FC<KeyboardKeyInterface> = ({ char, width }): JS
 
          setTimeout(() => {
             setCorrectStatus(null);
-         }, 100)
+         }, 120)
       }
    }
 
@@ -30,7 +30,7 @@ export const KeyboardKey: React.FC<KeyboardKeyInterface> = ({ char, width }): JS
       return () => {
          window.removeEventListener('keydown', highlightKeyboardKey);
       }
-   }, [layoutLanguage, trainingUserInput, correctStatus])
+   }, [layoutLanguage, trainingUserInput])
 
    return (
       <div className={`keyboard-key status-${correctStatus}`} style={{width: `${width}px`}}>

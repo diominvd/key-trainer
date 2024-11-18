@@ -1,6 +1,6 @@
 div.keyboard-key {
-   width: 45px;
-   height: 45px;
+   width: 40px;
+   height: 40px;
 
    display: flex;
    justify-content: center;
@@ -20,7 +20,8 @@ div.keyboard-key {
    }
 
    span {
-      font-size: 18px;
-      color: var(--text-100);
+      font-size: 16px;
+      font-family: var(--roboto);
+      color: var(--text-200);
    }
 }

@@ -28,6 +28,7 @@
     "paths": {
       "@app/*": ["src/app/*"],
       "@config/*": ["src/config/*"],
+      "@modules/*": ["src/modules/*"],
       "@pages/*": ["src/pages/*"],
       "@providers/*": ["src/providers/*"],
       "@styles/*": ["src/styles/*"],

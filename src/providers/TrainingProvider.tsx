@@ -22,7 +22,7 @@ interface TrainingProviderInterface {
    children: React.ReactNode;
 }
 
-const TrainingContext = createContext<TrainingContextInterface | undefined>(undefined)
+const TrainingContext = createContext<TrainingContextInterface | undefined>(undefined);
 
 export const TrainingProvider: React.FC<TrainingProviderInterface> = ({ children }): JSX.Element => {
    const [trainingStatus, setTrainingStatus] = useState<boolean>(false);
@@ -30,7 +30,7 @@ export const TrainingProvider: React.FC<TrainingProviderInterface> = ({ children
    const [trainingStartTime, setTrainingStartTime] = useState<number>(0);
    const [trainingTimerValue, setTrainingTimerValue] = useState<number>(0);
    const [trainingText, setTrainingText] = useState<string>('');
-   const [trainingTextLength, setTrainingTextLength] = useState<number>(30);
+   const [trainingTextLength, setTrainingTextLength] = useState<number>(20);
    const [trainingUserInput, setTrainingUserInput] = useState<string>('');
    const [trainingInputedCharsNumber, setTrainingInputedCharsNumber] = useState<number>(0);
    const [trainingCorrectInputedCharsNumber, setTrainingCorrectInputedCharsNumber] = useState<number>(0);
@@ -200,17 +200,13 @@ export const TrainingProvider: React.FC<TrainingProviderInterface> = ({ children
    })
 
    useEffect(() => {
-      const trainingCalculateIntervalId = setInterval(() => {
-         if (trainingStatus) {
-            checkTrainingUserInputCompleteness();
-            updateTrainingTimerValue();
-            updateTypingSpeed();
-            updateTypingAccuracy();
-         }
-      }, 50)
-
-      return () => clearInterval(trainingCalculateIntervalId);
-   })
+      if (trainingStatus) {
+         checkTrainingUserInputCompleteness();
+         updateTrainingTimerValue();
+         updateTypingSpeed();
+         updateTypingAccuracy();
+      }
+   }, [trainingUserInput])
 
    return (
       <TrainingContext.Provider value={{ layoutLanguage, trainingTimerValue, trainingText, trainingTextLength, trainingUserInput, typingSpeed, typingAccuracy, typingMisprints }}>
