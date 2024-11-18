@@ -6,6 +6,7 @@ import { App } from '@app/App.tsx';
 import '@styles/main.scss';
 import '@styles/theme-dark.scss';
 import '@styles/colors.scss';
+import '@styles/fonts.scss';
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

@@ -1,0 +1,30 @@
+span.training-text-character {
+   font-size: 20px;
+   font-family: var(--jb-mono);
+
+   &.color-neutral {
+      color: var(--text-200);
+   }
+   &.color-correct {
+      color: var(--primary-100);
+   }
+   &.color-incorrect {
+      color: var(--red);
+   }
+
+   &.underline-true {
+      text-decoration: underline 1.5px;
+   }
+
+   &.cursor-block {
+      &::after {
+         content: '|';
+         position: absolute;
+         color: transparent;
+         background-color: color-mix(in srgb, var(--text-200) 30%, transparent);
+      }
+   }
+   &.cursor-line {
+      border-right: 2px solid color-mix(in srgb, var(--primary-200) 50%, transparent);
+   }
+}

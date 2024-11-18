@@ -1,5 +1,6 @@
 span.text {
    font-size: 16px;
+   font-family: var(--roboto);
 
    &.align-left {
       text-align: left;
@@ -35,21 +36,5 @@ span.text {
    }
    &.color-primary-dark {
       color: var(--primary-300);
-   }
-
-   &.underline-true {
-      text-decoration: underline 1.5px;
-   }
-
-   &.cursor-block {
-      &::after {
-         content: '|';
-         position: absolute;
-         color: transparent;
-         background-color: color-mix(in srgb, var(--text-200) 20%, transparent);
-      }
-   }
-   &.cursor-line {
-      border-right: 2px solid color-mix(in srgb, var(--text-200) 20%, transparent);
    }
 }

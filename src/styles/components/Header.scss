@@ -1,0 +1,53 @@
+div.header {
+   display: flex;
+   flex-direction: row;
+
+   padding: 20px 40px;
+
+   span.divider {
+      color: var(--text-100);
+   }
+
+   div#branding {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      flex: 1;
+      gap: 20px;
+
+      font-size: 20px;
+
+      span.app-name {
+         font-family: var(--jb-mono);
+         font-weight: 900;
+         color: var(--primary-100);
+      }
+      
+      span.author {
+         font-size: 12px !important;
+         color: var(--text-200);
+      }
+   }
+
+   div#navigation {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+
+      a {
+         text-decoration: none;
+         
+         span.navigation-element {
+            font-size: 16px;
+            color: var(--text-100);
+            transition: all 0.3s;
+
+            &:hover {
+               color: var(--primary-100);
+               transition: all 0.3s;
+            }
+         }
+      }
+   }
+}

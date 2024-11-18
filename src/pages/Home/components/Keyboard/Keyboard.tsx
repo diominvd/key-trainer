@@ -26,7 +26,7 @@ export const Keyboard: React.FC = (): JSX.Element => {
                </Layout>
             ))
          }
-         <KeyboardKey char=' ' width={400}/>
+         <KeyboardKey char=' ' width={300}/>
       </Layout>
    )
 }

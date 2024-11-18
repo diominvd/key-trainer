@@ -1,8 +1,8 @@
 import React from 'react';
 // Providers;
-import { useTrainingProvider } from '@providers/TrainingProvider';
+import { useTrainingProvider } from '@providers/TrainingProvider.tsx';
 // Components;
-import { Text } from '@ui/typography/Text';
+import { TrainingTextCharacter } from './TrainingTextCharacter.tsx';
 // Styles;
 import '@styles/components/TrainingText.scss';
 
@@ -19,9 +19,9 @@ export const TrainingText: React.FC = (): JSX.Element => {
          const typedCharIsSpace = (typedChar === ' ') ? true : false;
          const typedCharMustBeSpace = (trainingText[typedCharIndex] === ' ') ? true : false;
          return (
-            <Text 
+            <TrainingTextCharacter 
                key={typedCharIndex} 
-               color={typedCharIsCorrect ? 'primary' : 'primary-dark'} 
+               color={typedCharIsCorrect ? 'correct' : 'incorrect'} 
                underline={typedCharMustBeSpace && !typedCharIsCorrect} 
                cursor={(typedCharIndex === trainingText.length - 1) ? false : (typedCharIndex === trainingUserInput.length - 1) && cursorType}
             >
@@ -37,13 +37,13 @@ export const TrainingText: React.FC = (): JSX.Element => {
                         ) : trainingText[typedCharIndex]
                   )
                }
-            </Text>
+            </TrainingTextCharacter>
          )
       } 
    )
 
    const notTypedCharsComponentsList: React.ReactNode[] = remainsOfTrainingTextCharsList.map((notTypedChar, notTypedCharIndex) => (
-      <Text key={notTypedCharIndex} color='gray'>{ notTypedChar }</Text>
+      <TrainingTextCharacter key={notTypedCharIndex} color='neutral'>{ notTypedChar }</TrainingTextCharacter>
    ))
 
    return (
