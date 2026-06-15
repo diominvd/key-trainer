@@ -2,10 +2,10 @@ import React from 'react';
 // Config;
 import { keyboardKeys } from '@config/keyboard.ts';
 // Providers;
-import { useTrainingProvider } from '@providers/TrainingProvider.tsx';
+import { useTrainingProvider } from '@providers/TrainingProvider';
 // Components;
-import { Layout } from '@ui/Layout/Layout.tsx';
-import { KeyboardKey } from './KeyboardKey.tsx';
+import { Layout } from '@ui/Layout/Layout';
+import { KeyboardKey } from './KeyboardKey';
 // Styles;
 import '@styles/components/Keyboard.scss';
 

@@ -1,11 +1,11 @@
 import React from 'react';
 // Components;
-import { Layout } from '@ui/Layout/Layout.tsx';
-import { TrainingText } from './components/TrainingText/TrainingText.tsx';
-import { Keyboard } from './components/Keyboard/Keyboard.tsx';
+import { Layout } from '@ui/Layout/Layout';
+import { TrainingText } from './components/TrainingText/TrainingText';
+import { Keyboard } from './components/Keyboard/Keyboard';
 // Styles;
 import '@styles/components/Page.scss';
-import { Result } from './components/Result.tsx';
+import { Result } from './components/Result';
 
 
 export const Home: React.FC = (): JSX.Element => {

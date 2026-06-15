@@ -1,8 +1,8 @@
 import React from 'react';
 // Components;
-import { useTrainingProvider } from '@providers/TrainingProvider.tsx';
-import { Text } from '@ui/Typography/Text.tsx';
-import { Layout } from '@ui/Layout/Layout.tsx';
+import { useTrainingProvider } from '@providers/TrainingProvider';
+import { Text } from '@ui/typography/Text';
+import { Layout } from '@ui/Layout/Layout';
 // Styles;
 import '@styles/components/Result.scss';
 

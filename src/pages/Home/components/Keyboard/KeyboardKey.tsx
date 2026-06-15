@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 // Providers;
-import { useTrainingProvider } from '@providers/TrainingProvider.tsx';
+import { useTrainingProvider } from '@providers/TrainingProvider';
 // Styles;
 import '@styles/components/KeyboardKey.scss';
 
